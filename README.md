@@ -66,6 +66,12 @@ Powers the actual transcript analysis in the app:
 - **Entity extraction**: Pulls out name, DOB, phone number
 - **Summarization**: Creates a brief summary of the call reason
 - **Urgency assessment**: Classifies as high/medium/low based on medical guidelines
+- **Clinical terminology**: Generates possible clinical assessments using proper medical terminology (hidden by default, toggle to view)
+- **Medication detection**: Recognizes medications mentioned in calls including:
+  - Generic names (lisinopril, metformin)
+  - Brand names (Lipitor, Tylenol, EpiPen)
+  - Slang/common names ("water pill" → hydrochlorothiazide, "blood thinner" → anticoagulant)
+  - Returns normalized name, what caller said, and drug category
 
 Configuration:
 - `temperature: 0.1` for consistent, deterministic outputs
@@ -114,11 +120,38 @@ because I've had chest pain for two days. Please call me back at 310-555-2211."
   "phone": "310-555-2211",
   "summary": "Chest pain for two days",
   "urgency": "high",
+  "possible_clinical_terms": "Possible angina pectoris with 48hr duration. Recommend urgent cardiac evaluation to r/o ACS, MI.",
+  "medications_mentioned": [],
   "patterns": {
     "flags": [],
     "hasHighPriorityFlags": false,
     "previousCallCount": 0
   }
+}
+```
+
+### Example with Medications
+```
+"Hi there, this is Jennifer Martinez calling. My birthday is 07/22/1992.
+I need to refill my blood pressure medication, Lisinopril 10mg.
+My pharmacy is CVS on Main Street. Please call me back at 213-555-9901."
+```
+
+```json
+{
+  "intent": "prescription_refill",
+  "name": "Jennifer Martinez",
+  "dob": "1992-07-22",
+  "phone": "213-555-9901",
+  "summary": "Requesting refill of blood pressure medication",
+  "urgency": "low",
+  "medications_mentioned": [
+    {
+      "name": "lisinopril",
+      "mentioned_as": "Lisinopril 10mg",
+      "category": "ACE inhibitor"
+    }
+  ]
 }
 ```
 
@@ -232,7 +265,7 @@ callhandler/
 │   │   ├── CallHistory.jsx     # Historical calls list
 │   │   └── SearchPatients.jsx  # Patient search with autocomplete
 │   ├── data/
-│   │   └── testTranscripts.js  # 12 test cases
+│   │   └── testTranscripts.js  # 20 test cases
 │   ├── services/
 │   │   └── api.js              # Backend API client
 │   ├── App.jsx                 # Main app with tab navigation

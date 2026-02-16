@@ -215,6 +215,39 @@
   color: var(--text-dark);
 }
 
+/* Medications Section */
+.medications-section {
+  margin-top: 8px;
+}
+
+.medication-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.medication-item {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.med-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.med-mentioned {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.med-category {
+  color: var(--primary-blue);
+  font-size: 12px;
+  font-weight: 500;
+}
+
 /* Clinical Terms Section */
 .clinical-terms-section {
   margin-top: 12px;

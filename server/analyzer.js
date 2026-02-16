@@ -9,6 +9,14 @@ Extract the following information and return it as JSON:
 - phone: Callback phone number in format XXX-XXX-XXXX
 - summary: A brief 1-2 sentence summary of the reason for the call
 - possible_clinical_terms: A 1-2 sentence clinical assessment using proper medical terminology (e.g., "Pt presenting with acute urticaria, no respiratory distress or angioedema reported. Recommend antihistamine and monitoring for anaphylaxis." or "Possible syncopal episode with hx of HTN and medication non-compliance. Requires urgent evaluation to r/o CVA, MI, or arrhythmia.") Be conservative on term usage, and if not clear, leave blank. Always use term "possibe", this is not a real diagnosis!
+- medications_mentioned: An array of medications mentioned in the call. Recognize and normalize all forms including:
+  * Generic names (e.g., "lisinopril", "metformin", "hydrochlorothiazide")
+  * Brand names (e.g., "Lipitor", "Tylenol", "Advil", "EpiPen")
+  * Slang/common names (e.g., "water pill" → "hydrochlorothiazide", "blood thinner" → "anticoagulant", "heart pill", "sugar pill" → "diabetes medication")
+  For each medication, return an object with: {"name": "normalized name", "mentioned_as": "what caller said", "category": "drug class"}
+  Example: [{"name": "lisinopril", "mentioned_as": "blood pressure medication", "category": "ACE inhibitor"}]
+  Use cases: medication reconciliation, drug interaction checks, prescription verification, identifying non-compliance, urgent refill needs, adverse reaction tracking.
+  Return empty array [] if no medications mentioned.
 - urgency: Must be one of: "high", "medium", "low"
 
 Urgency guidelines:

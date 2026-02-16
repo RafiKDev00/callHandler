@@ -105,6 +105,29 @@ function ResultsDisplay({ result, loading, error }) {
               <span className="result-value">{result.summary || '—'}</span>
             </div>
 
+            {result.medications_mentioned && result.medications_mentioned.length > 0 && (
+              <div className="medications-section">
+                <div className="result-item">
+                  <span className="result-label">Medications</span>
+                  <span className="result-value">
+                    <div className="medication-list">
+                      {result.medications_mentioned.map((med, index) => (
+                        <div key={index} className="medication-item">
+                          <span className="med-name">{med.name}</span>
+                          {med.mentioned_as !== med.name && (
+                            <span className="med-mentioned"> (mentioned as "{med.mentioned_as}")</span>
+                          )}
+                          {med.category && (
+                            <span className="med-category"> — {med.category}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </span>
+                </div>
+              </div>
+            )}
+
             {result.possible_clinical_terms && (
               <div className="clinical-terms-section">
                 <button
