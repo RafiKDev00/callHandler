@@ -72,11 +72,88 @@ Powers the actual transcript analysis in the app:
   - Brand names (Lipitor, Tylenol, EpiPen)
   - Slang/common names ("water pill" → hydrochlorothiazide, "blood thinner" → anticoagulant)
   - Returns normalized name, what caller said, and drug category
+- **Provider/Department routing**: Identifies specific doctors or departments requested by callers (e.g., "Dr. Smith", "Billing", "Cardiology") for efficient call routing
+- **Insurance detection**: Captures insurance information when mentioned:
+  - Whether caller has insurance (yes/no)
+  - Plan type if specified (Blue Cross, Aetna PPO, Medicare, etc.)
+  - Returns null if insurance not mentioned at all
+- **Known allergies**: Extracts confirmed allergies the patient mentions (e.g., "I'm allergic to penicillin", "peanut allergy")
+  - Only captures stated allergies, not symptoms of reactions
+  - Displayed prominently with red warning styling for safety
+- **Social Determinants of Health (SDOH)**: Captures social factors affecting healthcare:
+  - Transportation (no car, relies on family, public transit)
+  - Living situation (lives alone, with family, nursing home)
+  - Caregiver availability
+  - Language barriers and interpreter needs
+  - Vulnerable population flags (elderly alone, cognitive impairment, financial hardship)
+- **Scheduling Context**: For appointment-related calls:
+  - Appointment type needed (same-day urgent, routine, follow-up)
+  - Scheduling constraints (works weekdays, transportation dependent)
+  - Visit type preference (in-person, telehealth)
+  - Existing appointment status
+- **Billing/Admin Context**: For administrative calls:
+  - Issue type (billing dispute, insurance claim, payment question)
+  - Dispute details with amounts
+  - Administrative requests (medical records, work excuse, disability paperwork)
+- **Mental Health Indicators**: Sensitive detection of mental health concerns:
+  - Concerns mentioned (anxiety, depression, panic attacks, substance use, etc.)
+  - Severity indicators (crisis, urgent, routine)
+  - Caller emotional state (distressed, crying, agitated)
+  - Current treatment status
+  - **CRISIS ALERT**: Auto-flags suicidal ideation or self-harm mentions
+- **Pregnancy Information**: OB-specific extraction:
+  - Pregnancy status, trimester, weeks if mentioned
+  - Concerns (bleeding, contractions, reduced movement)
+  - High-risk pregnancy flag
+- **Infectious Disease Context**: COVID/illness tracking:
+  - Disease type (COVID, flu, strep, RSV, stomach virus)
+  - Symptoms mentioned
+  - Exposure status, test requests, isolation guidance
+  - Household members affected
+- **Alternate Contacts**: Additional ways to reach caller:
+  - Secondary phone numbers
+  - Email addresses
+  - Emergency contacts (name, relationship, phone)
+  - Preferred contact method (call, text, email)
+  - Best time to call
+  - Pharmacy information
+- **Extraction Confidence Score**: Smart completeness evaluation:
+  - Score 0-100 based on topic-relevant fields captured
+  - Identifies primary topic (medical, scheduling, billing, prescription)
+  - Lists expected vs captured vs missing fields
+  - Data quality notes for unclear/ambiguous information
 
 Configuration:
 - `temperature: 0.1` for consistent, deterministic outputs
 - `response_format: { type: 'json_object' }` for reliable JSON
+- All 18 fields always returned in JSON (null/empty if not applicable)
 - Detailed system prompt with urgency classification guidelines
+
+### Complete JSON Schema
+Every analysis returns ALL fields for consistency:
+```json
+{
+  "intent": "appointment_booking | prescription_refill | billing_question | ...",
+  "name": "string | null",
+  "dob": "YYYY-MM-DD | null",
+  "phone": "XXX-XXX-XXXX | null",
+  "requested_provider": { "type": "doctor|department|both", "doctors": [], "department": "" } | null,
+  "insurance": { "has_insurance": true|false, "plan_type": "" } | null,
+  "summary": "string",
+  "possible_clinical_terms": "string | null",
+  "medications_mentioned": [{ "name": "", "mentioned_as": "", "category": "" }],
+  "known_allergies": ["string"],
+  "sdoh": { "transportation": "", "living_situation": "", "caregiver_available": "", "language_barrier": {}, "vulnerable_population_flags": [] } | null,
+  "scheduling_context": { "appointment_type_needed": "", "scheduling_constraints": [], "visit_type_preference": "", "existing_appointment": {} } | null,
+  "billing_context": { "issue_type": "", "dispute_details": {}, "administrative_requests": [] } | null,
+  "mental_health": { "concerns_mentioned": [], "severity_indicators": "", "caller_emotional_state": "", "support_system_mentioned": null, "current_treatment": null } | null,
+  "pregnancy": { "is_pregnant": true|false, "trimester": "", "weeks_if_mentioned": null, "concerns": [], "high_risk_mentioned": false } | null,
+  "infectious_disease": { "type": "", "symptoms": [], "exposure_reported": false, "test_requested": false, "isolation_status": "", "household_affected": false } | null,
+  "alternate_contacts": { "secondary_phone": "", "email": "", "emergency_contact": {}, "preferred_contact_method": "", "best_time_to_call": "", "pharmacy": {} } | null,
+  "urgency": "high | medium | low",
+  "extraction_confidence": { "score": 0-100, "primary_topic": "", "fields_expected": [], "fields_captured": [], "fields_missing": [], "data_quality_notes": [] }
+}
+```
 
 ---
 
@@ -118,6 +195,7 @@ because I've had chest pain for two days. Please call me back at 310-555-2211."
   "name": "Sarah Cohen",
   "dob": "1988-03-12",
   "phone": "310-555-2211",
+  "requested_provider": null,
   "summary": "Chest pain for two days",
   "urgency": "high",
   "possible_clinical_terms": "Possible angina pectoris with 48hr duration. Recommend urgent cardiac evaluation to r/o ACS, MI.",
@@ -154,6 +232,131 @@ My pharmacy is CVS on Main Street. Please call me back at 213-555-9901."
   ]
 }
 ```
+
+### Example with Provider/Department
+```
+"Good morning, my name is Patricia Brown, date of birth August 8, 1961.
+Dr. Smith recommended I see a cardiologist and I need a referral.
+Can you please process that and send it to my insurance? You can reach me at 714-555-3320."
+```
+
+```json
+{
+  "intent": "referral_request",
+  "name": "Patricia Brown",
+  "dob": "1961-08-08",
+  "phone": "714-555-3320",
+  "requested_provider": {
+    "type": "both",
+    "doctors": ["Dr. Smith"],
+    "department": "Cardiology"
+  },
+  "summary": "Needs cardiology referral as recommended by Dr. Smith",
+  "urgency": "low"
+}
+```
+
+### Example with Insurance
+```
+"Hello, I'm calling to verify that you accept my new insurance plan.
+My name is Emily Davis, born 06/10/1995. I just switched to Blue Shield PPO
+and want to make sure I can still see Dr. Johnson. Call me at 323-555-1178."
+```
+
+```json
+{
+  "intent": "insurance_inquiry",
+  "name": "Emily Davis",
+  "dob": "1995-06-10",
+  "phone": "323-555-1178",
+  "requested_provider": {
+    "type": "doctor",
+    "doctors": ["Dr. Johnson"],
+    "department": null
+  },
+  "insurance": {
+    "has_insurance": true,
+    "plan_type": "Blue Shield PPO"
+  },
+  "summary": "Verifying if clinic accepts new Blue Shield PPO insurance",
+  "urgency": "low"
+}
+```
+
+### Example with Known Allergies
+```
+"Hi, this is James Anderson, born 02/14/1979. My son just ate something with
+peanuts and his face is swelling up. He has a peanut allergy. We gave him his
+EpiPen but I need to know if we should come to the ER. Call back at 562-555-8891."
+```
+
+```json
+{
+  "intent": "urgent_medical_issue",
+  "name": "James Anderson",
+  "dob": "1979-02-14",
+  "phone": "562-555-8891",
+  "summary": "Child having allergic reaction to peanuts, EpiPen administered, asking if ER needed",
+  "urgency": "high",
+  "known_allergies": ["peanuts"],
+  "medications_mentioned": [
+    {"name": "epinephrine auto-injector", "mentioned_as": "EpiPen", "category": "emergency allergy medication"}
+  ]
+}
+```
+
+### Example with SDOH & Confidence Score
+From test transcript #17 (Frantic Parent - ESL):
+```json
+{
+  "intent": "urgent_medical_issue",
+  "name": "José Ramirez",
+  "urgency": "high",
+  "sdoh": {
+    "transportation": "no_car",
+    "living_situation": "lives_with_family",
+    "language_barrier": {
+      "primary_language": "Spanish",
+      "interpreter_needed": true,
+      "health_literacy_concern": false
+    },
+    "vulnerable_population_flags": ["financial_hardship"]
+  },
+  "extraction_confidence": {
+    "score": 72,
+    "primary_topic": "medical",
+    "fields_expected": ["name", "dob", "phone", "summary", "urgency"],
+    "fields_captured": ["name", "phone", "summary", "urgency"],
+    "fields_missing": ["dob"],
+    "data_quality_notes": ["caller confused about children's names", "phone number given twice with different numbers"]
+  }
+}
+```
+
+### Example: Routine Caller (Positive Flag)
+If a patient like Jennifer Martinez (from the medication example) calls multiple times for routine matters:
+```json
+{
+  "patterns": {
+    "flags": [
+      {
+        "type": "routine_caller",
+        "severity": "info",
+        "message": "Established patient with 3 routine calls",
+        "details": {
+          "totalCalls": 3,
+          "intents": ["Prescription Refill", "Appointment Booking"],
+          "allLowUrgency": true
+        }
+      }
+    ],
+    "hasHighPriorityFlags": false,
+    "isRoutineCaller": true
+  }
+}
+```
+
+This displays as a green "Established patient" badge instead of a warning.
 
 If Sarah calls again, the system flags it:
 ```json
@@ -245,6 +448,33 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | Recurring Issue | Same intent 2+ times | Medium (2x), High (3x+) |
 | Rapid Callbacks | 3+ calls in 24h | High |
 | Escalating Symptoms | Low/medium → high urgency | High |
+| **Routine Caller** | All calls low urgency + routine intents | Info (positive) |
+
+#### Routine Caller Detection
+The system identifies "established patients" who consistently call for routine matters. This positive flag appears when:
+- Current call is low urgency with a routine intent
+- All previous calls were also low urgency with routine intents
+- No concerning patterns (repeat urgent, escalating symptoms, etc.)
+
+**Routine intents:** appointment booking/cancellation, prescription refills, billing questions, test results, insurance inquiries, referral requests, general inquiries
+
+This helps staff quickly identify low-risk callers who can be handled efficiently.
+
+### Test Transcript Coverage
+
+The 32 included test transcripts cover a wide range of scenarios:
+
+| Category | Test Cases |
+|----------|------------|
+| **Urgent Medical** | #1 Chest Pain, #5 Breathing, #8 Allergic Reaction, #12 Child Fever, #15 Unconscious |
+| **Routine** | #2 Physical, #3 Rx Refill, #6 Test Results, #7 Cancellation, #9 Referral |
+| **Billing/Admin** | #4 Billing Dispute, #11 Insurance Verification |
+| **Complex Callers** | #16 Elderly Confused, #17 ESL Parent, #18 Garbled Audio, #19 Rambling |
+| **Mental Health** | #21 Anxiety/Depression, #22 Suicidal Ideation (CRISIS), #27 Postpartum, #32 Teen Self-Harm |
+| **Pregnancy** | #23 Third Trimester Reduced Movement, #24 First Trimester Bleeding |
+| **Infectious Disease** | #25 COVID Positive, #26 Family Flu Outbreak, #29 Strep Exposure |
+| **SDOH/Vulnerable** | #16 Elderly Alone, #17 No Car/ESL, #30 Elderly Med Management, #31 Domestic Violence |
+| **Alternate Contacts** | #28 Complex Scheduling, #30 Multiple Contacts, #23/#24 Spouse Contacts |
 
 ---
 
@@ -265,7 +495,7 @@ callhandler/
 │   │   ├── CallHistory.jsx     # Historical calls list
 │   │   └── SearchPatients.jsx  # Patient search with autocomplete
 │   ├── data/
-│   │   └── testTranscripts.js  # 20 test cases
+│   │   └── testTranscripts.js  # 32 test cases
 │   ├── services/
 │   │   └── api.js              # Backend API client
 │   ├── App.jsx                 # Main app with tab navigation

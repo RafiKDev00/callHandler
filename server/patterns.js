@@ -1,5 +1,17 @@
 // Pattern detection for flagging interesting/urgent calls
 
+// Routine intents that don't indicate medical concerns
+const ROUTINE_INTENTS = [
+  'appointment_booking',
+  'appointment_cancellation',
+  'prescription_refill',
+  'billing_question',
+  'test_results',
+  'insurance_inquiry',
+  'general_inquiry',
+  'referral_request'
+];
+
 export function detectPatterns(currentCall, callerStats) {
   const flags = [];
   const { phoneMatches, nameMatches, recentCallCount, urgentCallCount } = callerStats;
@@ -82,13 +94,43 @@ export function detectPatterns(currentCall, callerStats) {
     });
   }
 
+  // Flag 6: Routine caller (all calls are low urgency and routine intents)
+  // Only add this positive flag if there are no concerning flags and caller has history
+  const isCurrentRoutine = currentCall.urgency === 'low' && ROUTINE_INTENTS.includes(currentCall.intent);
+  const allPreviousRoutine = previousCalls.length > 0 && previousCalls.every(c =>
+    c.urgency === 'low' && ROUTINE_INTENTS.includes(c.intent)
+  );
+
+  // Only show routine flag if no high/medium severity flags exist
+  const hasNoAlertFlags = flags.filter(f => f.severity === 'high' || f.severity === 'medium').length === 0;
+
+  if (isCurrentRoutine && allPreviousRoutine && hasNoAlertFlags && previousCalls.length >= 1) {
+    const totalCalls = previousCalls.length + 1;
+    const uniqueIntents = [...new Set([currentCall.intent, ...previousCalls.map(c => c.intent)])];
+
+    flags.push({
+      type: 'routine_caller',
+      severity: 'info',
+      message: `Established patient with ${totalCalls} routine calls`,
+      details: {
+        totalCalls,
+        intents: uniqueIntents.map(formatIntent),
+        allLowUrgency: true
+      }
+    });
+  }
+
   // Sort flags by severity
-  const severityOrder = { high: 0, medium: 1, low: 2 };
+  const severityOrder = { high: 0, medium: 1, low: 2, info: 3 };
   flags.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
+
+  // Check for routine caller status
+  const isRoutineCaller = flags.some(f => f.type === 'routine_caller');
 
   return {
     flags,
     hasHighPriorityFlags: flags.some(f => f.severity === 'high'),
+    isRoutineCaller,
     previousCallCount: recentCallCount,
     previousCalls: previousCalls.slice(0, 5) // Return last 5 for context
   };

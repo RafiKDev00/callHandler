@@ -215,6 +215,39 @@
   color: var(--text-dark);
 }
 
+/* Requested Provider */
+.provider-doctors {
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+.provider-separator {
+  color: var(--text-secondary);
+  margin: 0 2px;
+}
+
+.provider-dept {
+  color: var(--text-dark);
+  background-color: var(--gray-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* Insurance */
+.insurance-yes {
+  color: var(--success-green);
+  font-weight: 600;
+}
+
+.insurance-no {
+  color: var(--text-secondary);
+}
+
+.insurance-plan {
+  color: var(--text-dark);
+}
+
 /* Medications Section */
 .medications-section {
   margin-top: 8px;
@@ -246,6 +279,30 @@
   color: var(--primary-blue);
   font-size: 12px;
   font-weight: 500;
+}
+
+/* Allergies Section */
+.allergies-item {
+  background-color: #fff5f5;
+  margin: 8px -20px;
+  padding: 12px 20px;
+  border-left: 3px solid var(--urgent-red);
+}
+
+.allergies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.allergy-tag {
+  background-color: var(--urgent-red);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
 }
 
 /* Clinical Terms Section */
@@ -383,4 +440,374 @@
 
 .empty-state-text {
   font-size: 15px;
+}
+
+/* Context Sections (SDOH, Scheduling, Billing) */
+.context-section {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-border);
+}
+
+.section-header {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gray-border);
+}
+
+.sdoh-section {
+  background-color: #f3e5f5;
+  border-color: #ce93d8;
+}
+
+.sdoh-section .section-header {
+  color: #7b1fa2;
+  border-color: #ce93d8;
+}
+
+.scheduling-section {
+  background-color: #e3f2fd;
+  border-color: #90caf9;
+}
+
+.scheduling-section .section-header {
+  color: #1565c0;
+  border-color: #90caf9;
+}
+
+.billing-section {
+  background-color: #fff3e0;
+  border-color: #ffcc80;
+}
+
+.billing-section .section-header {
+  color: #e65100;
+  border-color: #ffcc80;
+}
+
+.context-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.context-label {
+  width: 100px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.context-value {
+  color: var(--text-dark);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.flag-tag {
+  background-color: var(--urgent-orange);
+  color: var(--text-dark);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: 6px;
+}
+
+.vuln-flag {
+  background-color: #7b1fa2;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.constraint-tag {
+  background-color: #1565c0;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.admin-tag {
+  background-color: #e65100;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+/* Confidence Score Section */
+.confidence-section {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-border);
+}
+
+.confidence-high {
+  background-color: #e8f5e9;
+  border-color: var(--success-green);
+}
+
+.confidence-medium {
+  background-color: #fff8e1;
+  border-color: var(--urgent-orange);
+}
+
+.confidence-low {
+  background-color: #fff3e0;
+  border-color: #ff9800;
+}
+
+.confidence-critical {
+  background-color: #ffebee;
+  border-color: var(--urgent-red);
+}
+
+.confidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.confidence-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.confidence-score {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.confidence-high .confidence-score {
+  color: var(--success-green);
+}
+
+.confidence-medium .confidence-score {
+  color: var(--urgent-orange);
+}
+
+.confidence-low .confidence-score {
+  color: #ff9800;
+}
+
+.confidence-critical .confidence-score {
+  color: var(--urgent-red);
+}
+
+.confidence-bar {
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.confidence-high .confidence-fill {
+  background-color: var(--success-green);
+}
+
+.confidence-medium .confidence-fill {
+  background-color: var(--urgent-orange);
+}
+
+.confidence-low .confidence-fill {
+  background-color: #ff9800;
+}
+
+.confidence-critical .confidence-fill {
+  background-color: var(--urgent-red);
+}
+
+.confidence-details {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.confidence-topic {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.confidence-missing {
+  margin-top: 6px;
+  color: var(--urgent-red);
+}
+
+.confidence-notes {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.quality-note {
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+/* Mental Health Section */
+.mental-health-section {
+  background-color: #fce4ec;
+  border-color: #f48fb1;
+}
+
+.mental-health-section .section-header {
+  color: #c2185b;
+  border-color: #f48fb1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mental-health-section.crisis-alert {
+  background-color: #ffcdd2;
+  border-color: var(--urgent-red);
+  border-width: 2px;
+}
+
+.crisis-badge {
+  background-color: var(--urgent-red);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.mh-tag {
+  background-color: #c2185b;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.mh-tag.mh-critical {
+  background-color: var(--urgent-red);
+  animation: pulse 1.5s infinite;
+}
+
+/* Pregnancy Section */
+.pregnancy-section {
+  background-color: #fff3e0;
+  border-color: #ffcc80;
+}
+
+.pregnancy-section .section-header {
+  color: #ef6c00;
+  border-color: #ffcc80;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pregnancy-section.high-risk {
+  background-color: #ffe0b2;
+  border-color: #ff9800;
+  border-width: 2px;
+}
+
+.high-risk-badge {
+  background-color: #ff9800;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+.preg-tag {
+  background-color: #ef6c00;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.preg-tag.preg-urgent {
+  background-color: var(--urgent-red);
+}
+
+/* Infectious Disease Section */
+.infectious-section {
+  background-color: #e8f5e9;
+  border-color: #a5d6a7;
+}
+
+.infectious-section .section-header {
+  color: #2e7d32;
+  border-color: #a5d6a7;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.disease-type {
+  background-color: #2e7d32;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+.inf-tag {
+  background-color: #388e3c;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-right: 4px;
+}
+
+/* Alternate Contacts Section */
+.contacts-section {
+  background-color: #e1f5fe;
+  border-color: #81d4fa;
+}
+
+.contacts-section .section-header {
+  color: #0277bd;
+  border-color: #81d4fa;
 }

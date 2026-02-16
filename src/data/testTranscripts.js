@@ -98,5 +98,65 @@ export const testTranscripts = [
     id: 20,
     label: "Teenager Calling for Parent",
     transcript: `Um, hi, yeah, so like, my mom asked me to call? She's not feeling good and she's in bed and can't really talk right now. Her name is Christine, uh, Christine Nakamura. N-A-K-A-M-U-R-A. She sees Dr. Reeves I think? Or maybe Dr. Reed? One of those. Anyway she's been throwing up since like last night and she has really bad stomach pain. She said to tell you it's on the right side? Like lower right? She's pretty out of it honestly, I'm kind of worried. She told me her birthday is September... um... hold on let me ask her... [muffled talking] ...she says September 9th, 1978. Our number is 503-555-6612. She says can someone call back soon because it really hurts. I don't know if I should take her to the hospital or what. I just got my license so I can drive but I've never driven to the hospital before. Can you just call us back please? Thanks.`
+  },
+  {
+    id: 21,
+    label: "Mental Health - Anxiety/Depression",
+    transcript: `Hi, this is Rachel Summers, date of birth April 17th, 1994. I'm a patient of Dr. Chen. I need to talk to someone because... [pause] ...I've been really struggling lately. My anxiety has been through the roof, I can't sleep, I've been having panic attacks almost every day now. I'm already seeing a therapist, her name is Dr. Morrison, but I think I might need medication at this point. I've tried to manage it on my own but it's affecting my work, I had to leave early three times this week. I just feel so overwhelmed and... I don't know... hopeless sometimes? Not like I want to hurt myself or anything, I just... I can't keep going like this. Can Dr. Chen call me back? My number is 512-555-7823. Actually, texting is better if possible, I get anxious about phone calls. Ironic, I know. Thanks.`
+  },
+  {
+    id: 22,
+    label: "CRISIS - Suicidal Ideation",
+    transcript: `[Quiet, flat voice] Hello. I need to speak to Dr. Williams. This is Kevin Park. My birthday is June 3rd, 1989. [Long pause] I've been his patient for two years now, for depression. I... I don't think the medication is working anymore. I stopped taking it last week because what's the point? [Pause] I've been thinking a lot about... about not being here anymore. About how everyone would be better off. I wrote some letters. To my mom and my sister. [Voice cracking] I just... I don't want to feel like this anymore. I'm so tired. [Pause] My number is 206-555-9182. I don't know why I'm calling. I just... I needed to tell someone I guess. Before... yeah. Can someone call me back? Please?`
+  },
+  {
+    id: 23,
+    label: "Pregnancy - Third Trimester Concerns",
+    transcript: `Hi, this is Ashley Rodriguez calling, date of birth February 28th, 1996. I'm 34 weeks pregnant and I'm having some concerns. I've noticed the baby isn't moving as much as usual today. Normally she's super active, especially after I eat, but I had lunch two hours ago and I've only felt maybe three or four movements. My OB is Dr. Patel. I'm also having some lower back pain but I don't know if that's normal or not at this stage. I'm a first-time mom so I don't really know what's normal. They told me I'm high-risk because I have gestational diabetes, so I'm extra paranoid. Can someone call me back? My cell is 602-555-3341, but if you can't reach me, my husband Marcus can be reached at 602-555-3342. He's at work but he'll answer. We're trying to decide if I should go to labor and delivery or wait. Thanks.`
+  },
+  {
+    id: 24,
+    label: "Pregnancy - First Trimester Bleeding",
+    transcript: `[Anxious voice] Hi, yes, I need to speak to someone right away. My name is Melissa Chang, DOB October 12th, 1991. I'm about 8 weeks pregnant and I just started spotting. It's not a lot, it's brownish, but I'm really scared because I had a miscarriage last year. I called my husband and he's on his way home from work to take me in if needed. We've been trying for so long and I just... I can't go through that again. [Starting to cry] Sorry. My doctor is Dr. Okonkwo. Please, can someone call me back immediately? My number is 415-555-2287. My husband is James, his number is 415-555-2288 if you can't reach me. I'm going to lie down. Please call soon.`
+  },
+  {
+    id: 25,
+    label: "COVID Positive - Seeking Guidance",
+    transcript: `Hello, this is Daniel Foster, date of birth September 22nd, 1985. I just tested positive for COVID on a home test. I have a fever of 101, bad cough, body aches, the whole thing. I'm double vaccinated but it's been a while since my last booster. I'm mostly concerned because I live with my elderly mother, she's 78 and has heart problems. She was exposed to me before I knew I was sick. Should she get tested? Should I isolate in my room? I have a pulse oximeter, my oxygen is at 96 right now. Also I'm supposed to go back to work on Monday, when is it safe to return? I have Blue Cross insurance. You can reach me at 720-555-4456. I'd prefer a phone call, I'm too tired to deal with emails. Oh, and I'm already taking Tylenol for the fever. I'm allergic to ibuprofen. Thanks.`
+  },
+  {
+    id: 26,
+    label: "Family Flu - Household Outbreak",
+    transcript: `Hi, this is Sandra Mitchell calling about my whole family basically. We all have the flu, it's been going through the house one by one. It started with my son Jake, he's 12, about four days ago. Then my daughter Emma, she's 9, got it two days ago. Now my husband and I both have it. I'm Sandra Mitchell, born March 5th, 1982. The kids see Dr. Yamamoto at your pediatric office, and my husband Brian and I see Dr. Foster. Everyone has high fevers, horrible coughs, body aches. The kids are doing a little better now but my husband is really struggling, he has asthma and his breathing is getting wheezy. Should he come in? Should any of us come in? I don't even know how we'd get there, we're all too sick to drive. My mother could maybe take us, her name is Dorothy Webb and her number is 303-555-8891. Our home number is 303-555-7712. Please call us back when you can. Oh, and we have Cigna insurance, the whole family is on the same plan.`
+  },
+  {
+    id: 27,
+    label: "Mental Health - Postpartum",
+    transcript: `[Exhausted, tearful voice] Hi, I'm not sure who to call but I need help. This is Stephanie Nguyen, my birthday is December 1st, 1993. I had a baby six weeks ago and I... I don't think I'm okay. I love my daughter, I do, but sometimes I just stare at her and feel... nothing. Or I feel so angry for no reason. I haven't slept more than two hours at a time since she was born. My husband went back to work and I'm alone with her all day and I just... I keep crying. I had a panic attack yesterday and I called my mom because I was scared to be alone with the baby. I'm not going to hurt her, I would never, but these thoughts keep coming into my head and it scares me. My OB is Dr. Patel but maybe I need to see someone else? A psychiatrist? I don't know. My number is 619-555-2234. My mom is staying with me now, her name is Linda, she can be reached at 619-555-8876 if I don't answer. Please call soon. I need to talk to someone.`
+  },
+  {
+    id: 28,
+    label: "Alternate Contacts - Complex Scheduling",
+    transcript: `Hello, this is Barbara Henderson, date of birth July 19th, 1958. I need to schedule a follow-up appointment with Dr. Robinson after my knee surgery. I'm having trouble with transportation since I can't drive yet. My daughter usually takes me but she works during the day, so I need either a very early morning appointment, like 7:30 or 8am, or something after 5pm. Tuesdays and Thursdays are best because that's when she works from home and has flexibility. You can reach me at my home phone, 847-555-2901, but I'm hard of hearing so it might take a few rings. If you can't reach me, call my daughter Karen at 847-555-3045, she handles all my appointments anyway. Or you can email me at bhenderson1958@email.com, I check it every morning. Oh, and I need my physical therapy referral faxed to Lakeview PT, their number is 847-555-0022. Also I take Eliquis and Metoprolol, in case that matters for scheduling. Thank you dear.`
+  },
+  {
+    id: 29,
+    label: "Strep Exposure - School Notification",
+    transcript: `Hi, this is Mark Davidson calling about my son Tyler, his date of birth is April 3rd, 2016. We got a note from school today saying there's been a strep throat outbreak in his class. Three kids have it already. Tyler was complaining of a sore throat this morning but I sent him to school anyway because he didn't have a fever. Now I'm worried I should have kept him home. He does have a history of strep, he gets it at least once a year. Should I bring him in for a test? Or should I wait to see if he develops other symptoms? My wife is a teacher and she's paranoid about bringing it into her classroom. We also have a newborn at home, she's only 3 weeks old, is strep dangerous for babies? I can be reached at 508-555-6234. My wife Michelle is at 508-555-6235. Tyler sees Dr. Marcus. His pharmacy is the CVS on Elm Street if you need to call anything in. Thanks.`
+  },
+  {
+    id: 30,
+    label: "Elderly - Multiple Alternate Contacts",
+    transcript: `Yes hello, this is calling about my father, his name is William O'Brien, born November 11th, 1942. I'm his daughter Patricia. He lives alone since my mother passed but he's been having more trouble lately. He called me this morning confused about his medications, he couldn't remember if he took his pills or not. He's on quite a few - blood pressure, diabetes, blood thinners, and something for his memory. We have one of those pill organizers but he still gets confused. I'm worried because last week he forgot he had a doctor's appointment and missed it entirely. I live two hours away so I can't check on him every day. My brother Michael lives closer, his number is 781-555-4421. The visiting nurse comes on Mondays and Wednesdays, her name is Angela from Home Health Plus. Dad's number is 781-555-3308 but honestly, calling me is better, I'll make sure he does what he needs to do. My number is 617-555-9102. His primary care doctor is Dr. Shulman. I'm wondering if there's some kind of medication management service or maybe more frequent home visits? He's very stubborn about maintaining his independence but I'm worried about him being alone. His pharmacy is the Walgreens on Main Street in Quincy, they have all his prescriptions on file.`
+  },
+  {
+    id: 31,
+    label: "Domestic Violence Suspected",
+    transcript: `[Whispering, nervous] Hi, um, I need to make an appointment. My name is Jessica... Jessica Martinez. Born August 8th, 1990. I hurt my arm and I think I might need it looked at. [Pause] I fell down the stairs. [Longer pause] It's really swollen and I can't move my wrist very well. Um, I need an appointment when my husband is at work, so like between 10am and 2pm on weekdays? [Background noise] Hold on... [Muffled] I'm on the phone with the insurance company! [Back to phone, still whispering] Sorry. Can you call me tomorrow morning, after 9am? That's when he leaves. My number is 214-555-0893 but don't leave a voicemail, just text that there's an appointment available. My friend's number is 214-555-7234, that's Maria, you can call her if you really need to reach me and I don't answer. Please don't mention the doctor's office if my husband picks up. Just say it's a wrong number. [Background: man's voice] I have to go. Thanks.`
+  },
+  {
+    id: 32,
+    label: "Teen Mental Health Crisis (Parent Calling)",
+    transcript: `[Urgent, worried voice] Hello, I need to speak to Dr. Bennett immediately. This is Richard Torres, I'm calling about my daughter Sophia, her birthday is March 15th, 2008. She's 16. I just found out from her friend that she's been cutting herself. The friend showed me pictures Sophia sent her. I confronted Sophia and she admitted it, she's been doing it for months and hiding it with long sleeves. She says it helps her feel better when she's overwhelmed. She's been struggling at school, her grades dropped, she quit the soccer team, she stays in her room all the time. I thought it was just normal teenager stuff but obviously it's more serious. She's not talking to me now, she's locked in her room. My wife is on her way home from work. I don't know if I should take her to the emergency room or what. She says she doesn't want to kill herself, she just... hurts herself. Is that the same thing? What do I do? Please call me back immediately at 972-555-1847. My wife Angela can also be reached at 972-555-1848. We need help figuring out what to do tonight and then setting up some kind of treatment. She obviously needs more help than we can give her.`
   }
 ];
