@@ -1,0 +1,157 @@
+.pattern-flags {
+  background-color: #fff8e6;
+  border: 1px solid #f5c518;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.flags-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.flags-icon {
+  font-size: 18px;
+}
+
+.flags-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+.high-priority-badge {
+  margin-left: auto;
+  background-color: var(--urgent-red);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.flags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flag-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.flag-item.flag-high {
+  border-left: 3px solid var(--urgent-red);
+}
+
+.flag-item.flag-medium {
+  border-left: 3px solid var(--urgent-orange);
+}
+
+.flag-item.flag-low {
+  border-left: 3px solid var(--primary-blue);
+}
+
+.flag-severity {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.flag-high .flag-severity {
+  background-color: var(--urgent-red);
+  color: white;
+}
+
+.flag-medium .flag-severity {
+  background-color: var(--urgent-orange);
+  color: var(--text-dark);
+}
+
+.flag-low .flag-severity {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.flag-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.flag-message {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
+}
+
+.flag-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.detail-date {
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.detail-urgency {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.detail-urgency.urgency-high {
+  background-color: var(--urgent-red);
+  color: white;
+}
+
+.detail-urgency.urgency-medium {
+  background-color: var(--urgent-orange);
+  color: var(--text-dark);
+}
+
+.detail-urgency.urgency-low {
+  background-color: var(--success-green);
+  color: white;
+}
+
+.detail-summary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.previous-calls-summary {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
