@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 function ResultsDisplay({ result, loading, error }) {
   const [viewMode, setViewMode] = useState('formatted');
+  const [showClinicalTerms, setShowClinicalTerms] = useState(false);
 
   if (loading) {
     return (
@@ -103,6 +104,23 @@ function ResultsDisplay({ result, loading, error }) {
               <span className="result-label">Summary</span>
               <span className="result-value">{result.summary || '—'}</span>
             </div>
+
+            {result.possible_clinical_terms && (
+              <div className="clinical-terms-section">
+                <button
+                  className="clinical-toggle"
+                  onClick={() => setShowClinicalTerms(!showClinicalTerms)}
+                >
+                  {showClinicalTerms ? 'Hide' : 'Show'} Clinical Terms
+                </button>
+                {showClinicalTerms && (
+                  <div className="result-item clinical-note">
+                    <span className="result-label">Clinical Terms</span>
+                    <span className="result-value">{result.possible_clinical_terms}</span>
+                  </div>
+                )}
+              </div>
+            )}
           </>
         ) : (
           <pre className="json-view">

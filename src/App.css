@@ -215,6 +215,56 @@
   color: var(--text-dark);
 }
 
+/* Clinical Terms Section */
+.clinical-terms-section {
+  margin-top: 12px;
+  border-top: 1px solid var(--gray-border);
+  padding-top: 12px;
+}
+
+.clinical-toggle {
+  background: none;
+  border: 1px solid var(--primary-blue);
+  color: var(--primary-blue);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clinical-toggle:hover {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+/* Clinical Note */
+.clinical-note {
+  background-color: #e8f4fd;
+  margin: 12px -20px -20px -20px;
+  padding: 16px 20px;
+  border-radius: 0 0 12px 12px;
+  border-bottom: none;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clinical-note .result-label {
+  color: var(--primary-blue);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: auto;
+}
+
+.clinical-note .result-value {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
 /* JSON View */
 .json-view {
   background-color: var(--text-dark);
